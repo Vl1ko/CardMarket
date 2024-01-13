@@ -3,7 +3,7 @@ from keyboards import keyboard
 from aiogram import types
 from aiogram.filters import Command
 
-@dp.message_handler(Command('start'))
+@dp.message(Command('start'))
 async def start(message: types.Message):
     await bot.send_message(message.chat.id, 'Тестируем WebApp!',
                            reply_markup=keyboard)
@@ -17,7 +17,7 @@ PRICE = {
     '6': [types.LabeledPrice(label='Item6', amount=600000)]
 }
 
-@dp.message_handler(content_types='web_app_data')
+@dp.message(content_types='web_app_data')
 async def buy_process(web_app_message):
     await bot.send_invoice(web_app_message.chat.id,
                            title='Laptop',
@@ -29,10 +29,10 @@ async def buy_process(web_app_message):
                            start_parameter='example',
                            payload='some_invoice')
 
-@dp.pre_checkout_query_handler(lambda query: True)
+@dp.pre_checkout_query(lambda query: True)
 async def pre_checkout_process(pre_checkout: types.PreCheckoutQuery):
     await bot.answer_pre_checkout_query(pre_checkout.id, ok=True)
 
-@dp.message_handler(content_types=types.ContentType.SUCCESSFUL_PAYMENT)
+@dp.message(content_types=types.ContentType.SUCCESSFUL_PAYMENT)
 async def successful_payment(message: types.Message):
     await bot.send_message(message.chat.id, 'Платеж прошел успешно!')
