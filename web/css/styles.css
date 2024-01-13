@@ -8,6 +8,7 @@ body {
     font-size: 16px;
     line-height: 1.4;
     color: var(--tg-theme-text-color);
+    background: var(--tg-theme-bg-color);
     min-width: 320px;
     overflow-x: hidden;
     height: auto;
@@ -16,7 +17,6 @@ body {
 .navbar {
     width: 100%;
     height: 70px;
-    color: var(--tg-theme-text-color);
     box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
 }
 
