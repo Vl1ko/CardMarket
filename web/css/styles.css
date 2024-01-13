@@ -21,6 +21,12 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
 }
 
+.img {
+    float: left;
+    margin-top: 2px;
+    margin-left: 50px;
+}
+
 .navbar .container {
     height: inherit;
     display: flex;
