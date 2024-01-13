@@ -2,13 +2,15 @@
  * Базовые стили для всего сайта
  */
 
+
+/* 
 body {
     position: relative;
     font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
     line-height: 1.4;
     color: var(--tg-theme-text-color);
-    background: var(--tg-theme-bg-color);
+    background: var(--tg-theme-text-color);
     min-width: 320px;
     overflow-x: hidden;
     height: auto;
@@ -25,4 +27,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+} */
+
+body {
+    color: var(--tg-theme-text-color);
+    background-color: var(--tg-theme-bg-color);
+    background: var(--tg-theme-bg-color);
 }
