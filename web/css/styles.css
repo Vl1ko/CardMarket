@@ -3,7 +3,7 @@ body {
     padding: 0;
     font-size: 18px;
     color: var(--tg-theme-text-color);
-    background-color: var(--tg-theme-bg-color);
+    background: var(--tg-theme-bg-color);
 }
 
 .container {
@@ -17,7 +17,7 @@ body {
 }
 
 .img {
-    width: 50px;
+    width: 150px;
 }
 
 .item {
@@ -31,8 +31,9 @@ body {
     background: rgb(248, 168, 24);
     border-radius: 10px;
     color: #fff;
+    text-transform: uppercase;
     font-weight: 700;
-    transform: background .2s linear;
+    transition: background .2s linear;
 }
 
 .btn:hover {
