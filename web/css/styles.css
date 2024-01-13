@@ -2,6 +2,12 @@
  * Базовые стили для всего сайта
  */
 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 body {
     position: relative;
     font-family: 'Noto Sans', sans-serif;
@@ -20,4 +26,23 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.navbar-menu {
+    list-style: none;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+
+.navbar-menu li {
+    display: inline-block;
+}
+
+.navbar-menu li a {
+    display: inline-block;
+}
+
+.navbar-wrap {
+    display: flex;
+    flex-flow: row nowrap;
 }
