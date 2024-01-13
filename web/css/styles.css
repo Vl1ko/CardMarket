@@ -6,6 +6,27 @@ body {
     background: var(--tg-theme-bg-color);
 }
 
+.navbar .container {
+    height: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-menu {
+    list-style: none;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+
+.navbar-menu li {
+    display: inline-block;
+}
+
+.navbar-menu li a {
+    display: inline-block;
+}
+
 .container {
     max-width: 390px;
 }
