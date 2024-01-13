@@ -38,7 +38,7 @@ body {
 
 .navbar-menu li a {
     display: inline-block;
-    color: #000;
+    color: var(--tg-theme-text-color);
     opacity: 0.8;
     text-decoration: none;
     padding: 35px;
