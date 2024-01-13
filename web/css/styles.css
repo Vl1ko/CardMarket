@@ -2,8 +2,6 @@
  * Базовые стили для всего сайта
  */
 
-
-/* 
 body {
     position: relative;
     font-family: 'Noto Sans', sans-serif;
@@ -27,10 +25,4 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-} */
-
-body {
-    color: var(--tg-theme-text-color);
-    background-color: var(--tg-theme-bg-color);
-    background: var(--tg-theme-bg-color);
 }
