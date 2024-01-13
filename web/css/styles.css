@@ -6,7 +6,7 @@ body {
     position: relative;
     font-family: 'Noto Sans', sans-serif;
     color: var(--tg-theme-text-color);
-    background: var(--tg-theme-text-color);
+    background: var(--tg-theme-bg-color);
 }
 
 
