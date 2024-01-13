@@ -15,7 +15,8 @@ PRICE = {
     '3': [types.LabeledPrice(label='Gift Card', amount=215000)],
     '4': [types.LabeledPrice(label='Gift Card', amount=315000)],
     '5': [types.LabeledPrice(label='Gift Card', amount=415000)],
-    '6': [types.LabeledPrice(label='Gift Card', amount=1015000)],
+    '6': [types.LabeledPrice(label='Gift Card', amount=515000)],
+    '7': [types.LabeledPrice(label='Gift Card', amount=1015000)]
 }
 
 @dp.message(F.content_type == ContentType.WEB_APP_DATA)
