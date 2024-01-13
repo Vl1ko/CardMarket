@@ -5,13 +5,8 @@
 body {
     position: relative;
     font-family: 'Noto Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.4;
     color: var(--tg-theme-text-color);
     background: var(--tg-theme-text-color);
-    min-width: 320px;
-    overflow-x: hidden;
-    height: auto;
 }
 
 .navbar {
