@@ -9,7 +9,8 @@ dp = Dispatcher(bot=bot)
 async def main():
     from handlers import dp
     try:
-        await dp.start_polling()
+        await dp.start_polling(bot)
+        print('Bot start!')
     finally:
         await bot.session.close()
 
