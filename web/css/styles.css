@@ -10,7 +10,7 @@ body {
     width: 100px;
     float: left;
     margin-top: 2px;
-    margin-left: 5px;
+    margin-left: 35px;
 }
 
 .navbar {
@@ -39,9 +39,9 @@ body {
 .navbar-menu li a {
     display: inline-block;
     color: #000;
-    opacity: 0.6;
+    opacity: 0.8;
     text-decoration: none;
-    padding: 5px;
+    padding: 35px;
 }
 
 .container {
