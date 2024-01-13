@@ -12,7 +12,7 @@ body {
     position: relative;
     font-family: 'Noto Sans', sans-serif;
     color: var(--tg-theme-text-color);
-    background: rgb(17, 43, 30);
+    background: var(--tg-theme-bg-color);
 }
 
 .navbar {
