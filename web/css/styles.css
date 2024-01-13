@@ -9,8 +9,7 @@ body {
     background: var(--tg-theme-bg-color);
 }
 
-
-/* .navbar {
+.navbar {
     width: 100%;
     height: 70px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
@@ -21,4 +20,4 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-} */
+}
