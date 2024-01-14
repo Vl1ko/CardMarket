@@ -64,7 +64,8 @@ body {
     text-align: center;
 }
 
-.h1 {
+.p {
+    word-wrap: break-word;
     display: inline-block;
     text-transform: uppercase;
     font-weight: 700;
