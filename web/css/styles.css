@@ -68,13 +68,17 @@ body {
 }
 
 .item-title {
+    padding-top: 5px;
+    padding-bottom: 5px;
     display: inline-block;
-    font-weight: 650;
+    font-weight: 550;
 }
 
 .item-price {
+    padding-top: 5px;
+    padding-bottom: 5px;
     display: inline-block;
-    font-weight: 800;
+    font-weight: 700;
     white-space: nowrap;
 }
 
