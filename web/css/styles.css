@@ -74,6 +74,17 @@ body {
     white-space: nowrap;
 }
 
+.item-price:before {
+    display: inline-block;
+    vertical-align: top;
+    content: '';
+    width: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: currentColor;
+    margin: 7px 4px;
+}
+
 .product {
     word-wrap: break-word;
     display: inline-block;
