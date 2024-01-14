@@ -71,14 +71,14 @@ body {
     padding-top: 5px;
     padding-bottom: 5px;
     display: inline-block;
-    font-weight: 550;
+    font-weight: 500;
 }
 
 .item-price {
     padding-top: 5px;
     padding-bottom: 5px;
     display: inline-block;
-    font-weight: 700;
+    font-weight: 600;
     white-space: nowrap;
 }
 
