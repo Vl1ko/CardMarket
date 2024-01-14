@@ -69,24 +69,24 @@ body {
 
 .item-title {
     display: inline-block;
-    font-weight: 500;
+    font-weight: 650;
 }
 
 .item-price {
     display: inline-block;
-    font-weight: 700;
+    font-weight: 800;
     white-space: nowrap;
 }
 
-.item-price:before {
+.item-price::before {
     display: inline-block;
     vertical-align: top;
-    content: •;
-    width: 2px;
-    height: 2px;
-    border-radius: 2px;
+    content: "";
+    width: 3px;
+    height: 3px;
+    border-radius: 6px;
     background-color: currentColor;
-    margin: 7px 4px;
+    margin: 7px 5px;
 }
 
 .product {
