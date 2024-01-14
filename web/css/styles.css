@@ -81,7 +81,7 @@ body {
 .item-price:before {
     display: inline-block;
     vertical-align: top;
-    content: '';
+    content: '•';
     width: 2px;
     height: 2px;
     border-radius: 2px;
