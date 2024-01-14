@@ -53,7 +53,7 @@ body {
 .inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 200px 200px 200px 200px;
+    grid-template-rows: 300px 300px 300px 300px;
 }
 
 .img {
@@ -64,7 +64,7 @@ body {
     text-align: center;
 }
 
-.p {
+.product {
     word-wrap: break-word;
     display: inline-block;
     text-transform: uppercase;
