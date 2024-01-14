@@ -64,6 +64,12 @@ body {
     text-align: center;
 }
 
+.h1 {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
 .btn {
     display: inline-block;
     padding: 10px 20px;
