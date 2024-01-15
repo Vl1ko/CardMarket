@@ -19,14 +19,6 @@ let btn6 = document.getElementById("btn6");
 let btn7 = document.getElementById("btn7");
 
 
-function getBackgroundByTagName(tag) {
-    var color = $('.' + body).css('background');
-    if (color == "#333333")
-
-}
-
-
-
 container.addEventListener("click", function() {
 
     if (tg.MainButton.isVisible) {
