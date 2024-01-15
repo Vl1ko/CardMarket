@@ -8,6 +8,8 @@ tg.MainButton.color = '#2cab37';
 let item = "";
 
 let container = document.getElementById("container");
+
+
 let btn1 = document.getElementById("btn1");
 let btn2 = document.getElementById("btn2");
 let btn3 = document.getElementById("btn3");
@@ -16,17 +18,37 @@ let btn5 = document.getElementById("btn5");
 let btn6 = document.getElementById("btn6");
 let btn7 = document.getElementById("btn7");
 
+
+function getBackgroundByTagName(tag) {
+    var color = $('.' + body).css('background');
+    if (color == "#333333")
+
+}
+
+
+
 container.addEventListener("click", function() {
+
     if (tg.MainButton.isVisible) {
+
         tg.MainButton.hide();
+
     }
+
 })
 
+
+
 btn1.addEventListener("click", function() {
+
     if (tg.MainButton.isVisible) {
+
         tg.MainButton.hide();
+
     } else {
+
         tg.MainButton.setText("Выбран товар Gift card Apple 500RUB!");
+
         item = "1";
         tg.MainButton.show();
     }
