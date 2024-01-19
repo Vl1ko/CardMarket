@@ -1,20 +1,21 @@
 from main import bot, dp
 from keyboards import keyboard
-from aiogram import Bot, Dispatcher, executor, types, ChatType
+from aiogram import Bot, Dispatcher, types
 from aiogram import types, F
 from aiogram.filters import Command
 from aiogram.types import ContentType
+"from aiogram.utils import executor"
 from db import Database
 
 db = Database('database.db')
 
 @dp.message(Command('start'))
 async def start(message: types.Message):
-    if (not db.user_exists(message.from_user.id)):
+    if (db.user_exists(message.from_user.id)):
+        await bot.send_message(message.chat.id, "Вы зарегестрированы")
+    else:
         db.add_user(message.from_user.id)
         await bot.send_message(message.chat.id, f"{message.from_user.full_name}, добро пожаловать!")
-    else:
-        await bot.send_message(message.chat.id, "Вы зарегестрированы")
 
     await bot.send_message(message.chat.id, 'Тестируем WebApp!',
                            reply_markup=keyboard)
@@ -29,10 +30,10 @@ PRICE = {
     '7': [types.LabeledPrice(label='Gift Card', amount=1015000)]
 }
 
-@dp.message()
+"""@dp.message()
 async def bot_message(message: types.Message):
     if ChatType == "private":
-        if message.text ==
+        if message.text =="""
 
 @dp.message(F.content_type == ContentType.WEB_APP_DATA)
 async def buy_process(web_app_message):

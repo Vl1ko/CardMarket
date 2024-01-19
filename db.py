@@ -7,16 +7,18 @@ class Database:
 
     def add_user(self, user_id):
         with self.connection:
-            self.cursor.execute("INSERT INTO 'users' ('user_id) VALUE (?)", (user_id,))
+            self.cursor.execute("INSERT INTO 'users' ('user_id') VALUES (?)", (user_id,))
 
     def user_exists(self, user_id):
         with self.connection:
+            print(user_id)
             result = self.cursor.execute("SELECT * FROM 'users' WHERE 'user_id' = ?", (user_id,)).fetchall()
+            print(bool(len(result)))
             return bool(len(result))
         
-    def set_admin(self, user_id, nickname):
+    def set_admin(self, user_id):
         with self.connection:
-            return self.cursor.execute("UPDATE 'users' SET 'nickname' = ? WHERE 'user_id' = ?", (nickname, user_id,))
+            return self.cursor.execute("UPDATE 'users' SET 'admin' = 1 WHERE 'user_id' = ?", (user_id,))
 
     def get_signup(self, user_id):
         with self.connection:
