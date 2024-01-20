@@ -11,24 +11,28 @@ class Database:
 
     def user_exists(self, user_id):
         with self.connection:
-            print(user_id)
-            result = self.cursor.execute("SELECT * FROM 'users' WHERE 'user_id' = ?", (user_id,)).fetchall()
-            print(bool(len(result)))
-            return bool(len(result))
+            result = self.cursor.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchall()
+            return (bool(len(result)))
         
     def set_admin(self, user_id):
         with self.connection:
-            return self.cursor.execute("UPDATE 'users' SET 'admin' = 1 WHERE 'user_id' = ?", (user_id,))
-
-    def get_signup(self, user_id):
+            return self.cursor.execute("UPDATE users SET admin = 1 WHERE user_id = ?", (user_id,))
+    
+    def del_admin(self, user_id):
         with self.connection:
-            result = self.cursor.execute("SELECT 'signup' FROM 'users' WHERE 'user_id' = ?", (user_id,)).fetchall()
-            for row in result:
-                signup=str(row[0])
-            return signup
+            return self.cursor.execute("UPDATE users SET admin = 0 WHERE user_id = ?", (user_id,))
 
-    def set_signup(self, user_id, signup):
+    def admin_exists(self, user_id):
         with self.connection:
-            return self.cursor.execute("UPDATE 'users' SET 'nickname' = ? WHERE 'user_id' = ?", (signup, user_id,))
-            
-        
+            result = str(self.cursor.execute("SELECT admin FROM users WHERE user_id = ?", (user_id,)).fetchall())[2:][:1]
+            return (result)
+
+    def add_product(self, amount, number):
+        with self.connection:
+            self.cursor.execute("INSERT INTO 'cards' ('amount','number') VALUES (?, ?)", (amount, number,))      
+
+    def del_product(self, number):
+        with self.connection:
+            self.cursor.execute("DELETE FROM cards WHERE number = ?", (number,))    
+
+  
