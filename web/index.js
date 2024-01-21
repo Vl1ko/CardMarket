@@ -19,13 +19,9 @@ let btn7 = document.getElementById("btn7");
 btn1.addEventListener("click", function() {
 
     if (tg.MainButton.isVisible) {
-
         tg.MainButton.hide();
-
     } else {
-
         tg.MainButton.setText("Выбран товар Gift card Apple 500RUB!");
-
         item = "1";
         tg.MainButton.show();
     }
