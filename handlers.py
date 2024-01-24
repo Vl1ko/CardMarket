@@ -1,4 +1,6 @@
 import datetime
+import pathlib
+import sys
 from main import bot, dp
 from keyboards import *
 from aiogram import Bot, Dispatcher, types, Router
@@ -8,11 +10,13 @@ from aiogram.utils.formatting import Text, Code, Bold
 from aiogram.fsm.context import FSMContext
 from aiogram.filters import Command
 from aiogram.types import ContentType, Message
-"from aiogram.utils import executor"
 from db import Database
 from states import *
 
-db = Database('database.db')
+script_dir = pathlib.Path(sys.argv[0]).parent
+db_file = script_dir / 'database.db'
+
+db = Database(db_file=db_file)
 
 PRICE = {
     '1': [types.LabeledPrice(label='Apple Gift Card 500 ₽', amount=500*1.3*100)],
@@ -28,6 +32,7 @@ PRICE = {
 
 @dp.message(Command('start'))
 async def start(message: types.Message):
+    print(message.from_user.id)
     if (db.user_exists(message.from_user.id)):
         if (int(db.admin_exists(message.from_user.id)) == 1):
             await bot.send_message(message.chat.id, "Вы вошли в роли администратора",
@@ -36,8 +41,9 @@ async def start(message: types.Message):
             await bot.send_message(message.chat.id, f"{message.from_user.full_name}, рады снова приветствовать тебя!",
                            reply_markup=keyboard)
     else:
-        db.add_user(user_id=message.from_user.id, signup=datetime.date.today())
+        db.add_user(message.from_user.id, signup=datetime.date.today())
         await bot.send_message(message.chat.id, f"{message.from_user.full_name}, добро пожаловать!")
+        await bot.send_message(message.chat.id, f"{message.from_user.full_name}, 🔥 Мы рады приветствовать вас в нашем магазине по продаже подарочных сертификатов Apple! Мы предлагаем вам множество вариаций подарочных карт на самые разные суммы!\n⚡️ После активации подарочной карты Вы сможете:\n➕ Оплачивать подписки, например Apple Music, Apple Arcade и Apple TV+\n➕ Покупать приложения, игры или делать покупки в приложениях через App Store\n➕ Покупать музыку, фильмы и многое другое в iTunes Store, приложении Apple TV или Apple Books\n➕ Платить за хранилище iCloud\nПриятных покупок 🍏")
 
 @dp.message(Command('profile'))
 async def profile(message: types.Message):
@@ -175,5 +181,27 @@ async def pre_checkout_process(pre_checkout: types.PreCheckoutQuery):
 
 @dp.message(F.content_type == ContentType.SUCCESSFUL_PAYMENT)
 async def successful_payment(message: types.Message):
-    print()
-    await bot.send_message(message.chat.id, f'Платеж прошел успешно!\n\n{message.successful_payment}')
+    payment_info = str(message.successful_payment).split()
+    print("\n\n\n")
+    print("{:^30}".format("НОВАЯ ОПЛАТА\n\n"))
+    print("{:<30}".format(f"{datetime.datetime.today()}"))
+    for i in payment_info:
+        print("{:<30}".format(f"{i}"))
+    title1 = "📱 Инструкция для iPhone, iPad или iPod touch:"
+    title2 = "💻 Инструкция для компьютера Mac:"
+    card_number = str(db.new_buy(amount=int(int(message.successful_payment.total_amount)/130), user_id=message.chat.id, product='Подарочная карта'))
+    await bot.send_message(message.chat.id, f"Оплата прошла успешно!\nТип товара: Подарочная карта\nНомер подарочной карты : {Code(card_number)}\nСпасибо за покупку в нашем магазине будем рады видеть вас снова!\nБудем ждать ваш отзыв здесь @AppleCardss\n{Bold(title1)}\n1. Откройте App Store.\n2. В верхней части экрана нажмите кнопку входа или свое фото.\n3. Нажмите «Погасить подарочную карту или код».\n{Bold(title2)}\n1. Откройте App Store.\n2. Нажмите свое имя или кнопку входа на боковой панели.\n3. Нажмите «Погасить подарочную карту».")
+    await bot.send_message(705559369, f"Новая покупка в боте!{datetime.datetime.today()}\n\nПользователь {message.chat.id}\n\nДанные о заказе:\n{str(message.successful_payment)}")
+
+
+@dp.callback_query(F.data == "orders")
+async def history(callback: types.CallbackQuery):
+    order = str(str(db.buy_history(user_id=callback.message.chat.id)).replace('[','').replace("'"," ").replace("(","").replace('"',"").replace("datetime",'').replace(",",'').replace('date','').replace(".",'').replace("|", "").replace(")","").replace("]",'').replace("'\'","").lstrip()).split()
+    lenght = len(order)
+    index = lenght//6
+    nmes = " "
+    for i in range(index):
+        mes = f"{order[(6*i)]}-{order[(6*i)+1]}-{order[(6*i)+2]} {order[(6*i)+3]} {order[(6*i)+4]} {order[(6*i)+5]}\n"
+        nmes = nmes + mes
+
+    await callback.message.answer(f"История покупок в формате Дата Сумма Товар:\n\n{str(nmes)[:-2]}")
