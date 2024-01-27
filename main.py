@@ -7,7 +7,11 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(bot=bot)
 
 async def main():
-    from handlers import dp
+    from handlers.admin import dp
+    from handlers.commands import dp
+    from handlers.others import dp
+    from handlers.commands import dp
+    from handlers.users import dp
     try:
         await dp.start_polling(bot)
         print('Bot start!')

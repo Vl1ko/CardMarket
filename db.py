@@ -60,12 +60,12 @@ class Database:
             print(str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchone()))
             if len(str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchone())) > 7:
                 old_description = str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchone())[2:][:-3]
-                description = f"{old_description}{date, amount, product}|"
+                description = f"{old_description}{date, amount, product, number}|"
                 self.cursor.execute("UPDATE users SET orders = ? WHERE user_id = ?", (description, user_id))
                 print('Старое описание', old_description)
                 print('Новое описание', description)            
             else:
-                description = f"{date, amount, product}|"
+                description = f"{date, amount, product, number}|"
                 self.cursor.execute("UPDATE users SET orders = ? WHERE user_id = ?", (description, user_id))
                 print('Новое описание', description)
 

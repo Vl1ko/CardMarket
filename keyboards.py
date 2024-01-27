@@ -1,5 +1,7 @@
 from aiogram.types import WebAppInfo
 from aiogram import types
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
+
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 web_app = WebAppInfo(url='https://vl1ko.github.io/CardMarket/web/index.html')
@@ -9,21 +11,26 @@ builder = InlineKeyboardBuilder()
 def my_order_kb():
     order_kb = [
         [types.InlineKeyboardButton(text="🛍️ История покупок",
-                                    callback_data="orders")]
+                                    callback_data="orders")],
+        [types.InlineKeyboardButton(text="📝 Отзывы",
+                                    callback_data="feedback",
+                                    url="https://t.me/+mmUHWUQI45Y0N2Ni")],                            
     ]
     return types.InlineKeyboardMarkup(inline_keyboard=order_kb)
 
-keyboard = types.ReplyKeyboardMarkup(
-    keyboard=[
-        [types.KeyboardButton(text='Перейти к товарам', web_app=web_app)]
-    ],
-    resize_keyboard=True
-)
+
+mnkeyboard = ReplyKeyboardBuilder().add(
+    types.KeyboardButton(text='🛒 Перейти к товарам', web_app=web_app),
+    types.KeyboardButton(text='👤 Мой профиль'),
+    types.KeyboardButton(text='👨‍💻 Тех. поддержка'),
+    types.KeyboardButton(text="📝 Отзывы"),
+    types.KeyboardButton(text="📢 Перейти в канал")).adjust(2)
 
 main_adm_keyboard = types.ReplyKeyboardMarkup(
     keyboard=[
         [types.KeyboardButton(text='👨‍💻 Меню администратора')],
-        [types.KeyboardButton(text='Перейти к товарам', web_app=web_app)]
+        [types.KeyboardButton(text='🛒 Перейти к товарам', web_app=web_app)],
+        [types.KeyboardButton(text='👤 Мой профиль')]
     ],
     resize_keyboard=True
 )

@@ -18,42 +18,6 @@ db_file = script_dir / 'database.db'
 
 db = Database(db_file=db_file)
 
-PRICE = {
-    '1': [types.LabeledPrice(label='Apple Gift Card 500 ₽', amount=500*1.3*100)],
-    '2': [types.LabeledPrice(label='Apple Gift Card 1500 ₽', amount=1500*1.3*100)],
-    '3': [types.LabeledPrice(label='Apple Gift Card 2000 ₽', amount=2000*1.3*100)],
-    '4': [types.LabeledPrice(label='Apple Gift Card 3000 ₽', amount=3000*1.3*100)],
-    '5': [types.LabeledPrice(label='Apple Gift Card 4000 ₽', amount=4000*1.3*100)],
-    '6': [types.LabeledPrice(label='Apple Gift Card 5000 ₽', amount=5000*1.3*100)],
-    '7': [types.LabeledPrice(label='Apple Gift Card 10000 ₽', amount=10000*1.3*100)]
-}
-
-
-
-@dp.message(Command('start'))
-async def start(message: types.Message):
-    print(message.from_user.id)
-    if (db.user_exists(message.from_user.id)):
-        if (int(db.admin_exists(message.from_user.id)) == 1):
-            await bot.send_message(message.chat.id, "Вы вошли в роли администратора",
-                                   reply_markup=main_adm_keyboard)
-        else:
-            await bot.send_message(message.chat.id, f"{message.from_user.full_name}, рады снова приветствовать тебя!",
-                           reply_markup=keyboard)
-    else:
-        db.add_user(message.from_user.id, signup=datetime.date.today())
-        await bot.send_message(message.chat.id, f"{message.from_user.full_name}, добро пожаловать!")
-        await bot.send_message(message.chat.id, f"{message.from_user.full_name}, 🔥 Мы рады приветствовать вас в нашем магазине по продаже подарочных сертификатов Apple! Мы предлагаем вам множество вариаций подарочных карт на самые разные суммы!\n⚡️ После активации подарочной карты Вы сможете:\n➕ Оплачивать подписки, например Apple Music, Apple Arcade и Apple TV+\n➕ Покупать приложения, игры или делать покупки в приложениях через App Store\n➕ Покупать музыку, фильмы и многое другое в iTunes Store, приложении Apple TV или Apple Books\n➕ Платить за хранилище iCloud\nПриятных покупок 🍏")
-
-@dp.message(Command('profile'))
-async def profile(message: types.Message):
-    content = Text(
-        "👤 Ваш профиль:\n\n",
-        "🆔 ID: ", (Code(message.from_user.id)), "\n",
-        "📅 Дата регистрации: ", db.reg_date(user_id=message.from_user.id), "\n"
-        "🛒 Количество покупок: ", db.bills(user_id=message.from_user.id)
-    )
-    await message.answer(**content.as_kwargs(), reply_markup=my_order_kb())
 
 @dp.message(F.text == "👨‍💻 Меню администратора")
 async def admin_menu(message: types.Message):
@@ -163,22 +127,6 @@ async def cmd_admin(message: types.Message, state: FSMContext):
                 await bot.send_document(message.chat.id, FSInputFile('database.db'))
 
 
-@dp.message(F.content_type == ContentType.WEB_APP_DATA)
-async def buy_process(web_app_message):
-    await bot.send_invoice(web_app_message.chat.id,
-                           title='Apple Gift Card 🍏',
-                           description='Подарочный сертификат Apple 🍏',
-                           provider_token='1744374395:TEST:ab45a4f8517a6551e5e2',
-                           currency='rub',
-                           need_email=True,
-                           prices=PRICE[f'{web_app_message.web_app_data.data}'],
-                           start_parameter='example',
-                           payload='some_invoice')
-
-@dp.pre_checkout_query(lambda query: True)
-async def pre_checkout_process(pre_checkout: types.PreCheckoutQuery):
-    await bot.answer_pre_checkout_query(pre_checkout.id, ok=True)
-
 @dp.message(F.content_type == ContentType.SUCCESSFUL_PAYMENT)
 async def successful_payment(message: types.Message):
     payment_info = str(message.successful_payment).split()
@@ -189,20 +137,7 @@ async def successful_payment(message: types.Message):
         print("{:<30}".format(f"{i}"))
     title1 = Bold("📱 Инструкция для iPhone, iPad или iPod touch:")
     title2 = Bold("💻 Инструкция для компьютера Mac:")
-    mes = Code(str(card_number))
     card_number = str(db.new_buy(amount=int(int(message.successful_payment.total_amount)/130), user_id=message.chat.id, product='Подарочная карта'))
-    await bot.send_message(message.chat.id, f"Оплата прошла успешно!\nТип товара: Подарочная карта\nНомер подарочной карты : {mes}\nСпасибо за покупку в нашем магазине будем рады видеть вас снова!\nБудем ждать ваш отзыв здесь @AppleCardss\n{title1}\n1. Откройте App Store.\n2. В верхней части экрана нажмите кнопку входа или свое фото.\n3. Нажмите «Погасить подарочную карту или код».\n{Bold(title2)}\n1. Откройте App Store.\n2. Нажмите свое имя или кнопку входа на боковой панели.\n3. Нажмите «Погасить подарочную карту».")
-    await bot.send_message(6165322066, f"Новая покупка в боте!{datetime.datetime.today()}\n\nПользователь {message.chat.id}\n\nДанные о заказе:\n{str(message.successful_payment)}")
-
-
-@dp.callback_query(F.data == "orders")
-async def history(callback: types.CallbackQuery):
-    order = str(str(db.buy_history(user_id=callback.message.chat.id)).replace('[','').replace("'"," ").replace("(","").replace('"',"").replace("datetime",'').replace(",",'').replace('date','').replace(".",'').replace("|", "").replace(")","").replace("]",'').replace("'\'","").lstrip()).split()
-    lenght = len(order)
-    index = lenght//6
-    nmes = " "
-    for i in range(index):
-        mes = f"{order[(6*i)]}-{order[(6*i)+1]}-{order[(6*i)+2]} {order[(6*i)+3]} {order[(6*i)+4]} {order[(6*i)+5]}\n"
-        nmes = nmes + mes
-
-    await callback.message.answer(f"История покупок в формате Дата Сумма Товар:\n\n{str(nmes)[:-2]}")
+    mes = Code(str(card_number))
+    await bot.send_message(message.chat.id, f"Оплата прошла успешно!\nТип товара: Подарочная карта\nНомер подарочной карты  ", mes, "\nСпасибо за покупку в нашем магазине будем рады видеть вас снова!\nБудем ждать ваш отзыв здесь @AppleCardss\n", title1, "\n1. Откройте App Store.\n2. В верхней части экрана нажмите кнопку входа или свое фото.\n3. Нажмите «Погасить подарочную карту или код».\n", title2, "\n1. Откройте App Store.\n2. Нажмите свое имя или кнопку входа на боковой панели.\n3. Нажмите «Погасить подарочную карту».")
+    await bot.send_message(705559369, f"Новая покупка в боте!{datetime.datetime.today()}\n\nПользователь {message.chat.id}\n\nДанные о заказе:\n{str(message.successful_payment)}")
