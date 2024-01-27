@@ -17,6 +17,15 @@ body {
     fill: var(--tg-theme-text-color);
 }
 
+.logo {
+    width: 100px;
+    float: left;
+    margin-top: 2px;
+    margin-left: 35px;
+    filter: var(--tg-theme-text-color);
+    fill: var(--tg-theme-text-color);
+}
+
 .navbar {
     color: rgb(255, 255, 255);
     width: 100%;
