@@ -8,16 +8,7 @@ body {
     background: var(--tg-theme-bg-color);
 }
 
-.logo {
-    width: 100px;
-    float: left;
-    margin-top: 2px;
-    margin-left: 35px;
-    filter: var(--tg-theme-text-color);
-    fill: var(--tg-theme-text-color);
-}
-
-.logo {
+.Layer_1 {
     width: 100px;
     float: left;
     margin-top: 2px;
