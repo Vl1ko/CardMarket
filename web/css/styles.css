@@ -13,7 +13,6 @@ body {
     float: left;
     margin-top: 2px;
     margin-left: 35px;
-    filter: var(--tg-theme-text-color);
 }
 
 .navbar {
