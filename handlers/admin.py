@@ -14,14 +14,14 @@ from db import Database
 from states import *
 
 card_summs = [
-    500,
-    1000,
-    1500,
-    2000,
-    3000,
-    4000,
-    5000,
-    10000
+    "500",
+    "1000",
+    "1500",
+    "2000",
+    "3000",
+    "4000",
+    "5000",
+    "10000"
 ]
 
 script_dir = pathlib.Path(sys.argv[0]).parent
@@ -96,7 +96,7 @@ async def cmd_admin(message: types.Message, state: FSMContext):
 @dp.message(AdminAction.add_new_card)
 async def cmd_admin(message: types.Message, state: FSMContext):
     try:
-        if ((message.text.split()[0].isdigit()) and (message.text.split()[1].isdigit())) and message.text.split()[0].isdigit() in card_summs:
+        if ((message.text.split()[0].isdigit()) and (message.text.split()[1].isdigit())) and message.text.split()[0] in card_summs:
             db.add_product(amount=(message.text.split())[0], number=(message.text.split())[1])
             await message.answer(text=f"Карта номиналом {(message.text.split())[0]} с номером {(message.text.split())[1]} добавлена успешно!")
             await state.clear()
