@@ -7,3 +7,4 @@ class AdminAction(StatesGroup):
     get_del_admin_id = State()
     add_new_card = State()
     del_card = State()
+    canceled_buy = State()

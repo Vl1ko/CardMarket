@@ -13,6 +13,17 @@ from aiogram.types import ContentType, Message
 from db import Database
 from states import *
 
+card_summs = [
+    500,
+    1000,
+    1500,
+    2000,
+    3000,
+    4000,
+    5000,
+    10000
+]
+
 script_dir = pathlib.Path(sys.argv[0]).parent
 db_file = script_dir / 'database.db'
 
@@ -85,7 +96,7 @@ async def cmd_admin(message: types.Message, state: FSMContext):
 @dp.message(AdminAction.add_new_card)
 async def cmd_admin(message: types.Message, state: FSMContext):
     try:
-        if ((message.text.split()[0].isdigit()) and (message.text.split()[1].isdigit())):
+        if ((message.text.split()[0].isdigit()) and (message.text.split()[1].isdigit())) and message.text.split()[0].isdigit() in card_summs:
             db.add_product(amount=(message.text.split())[0], number=(message.text.split())[1])
             await message.answer(text=f"Карта номиналом {(message.text.split())[0]} с номером {(message.text.split())[1]} добавлена успешно!")
             await state.clear()
@@ -138,6 +149,7 @@ async def successful_payment(message: types.Message):
     title1 = Bold("📱 Инструкция для iPhone, iPad или iPod touch:")
     title2 = Bold("💻 Инструкция для компьютера Mac:")
     card_number = str(db.new_buy(amount=int(int(message.successful_payment.total_amount)/130), user_id=message.chat.id, product='Подарочная карта'))
-    mes = Code(str(card_number))
-    await bot.send_message(message.chat.id, f"Оплата прошла успешно!\nТип товара: Подарочная карта\nНомер подарочной карты  ", mes, "\nСпасибо за покупку в нашем магазине будем рады видеть вас снова!\nБудем ждать ваш отзыв здесь @AppleCardss\n", title1, "\n1. Откройте App Store.\n2. В верхней части экрана нажмите кнопку входа или свое фото.\n3. Нажмите «Погасить подарочную карту или код».\n", title2, "\n1. Откройте App Store.\n2. Нажмите свое имя или кнопку входа на боковой панели.\n3. Нажмите «Погасить подарочную карту».")
-    await bot.send_message(705559369, f"Новая покупка в боте!{datetime.datetime.today()}\n\nПользователь {message.chat.id}\n\nДанные о заказе:\n{str(message.successful_payment)}")
+    mes = Bold(str(card_number))
+    content = Text(Bold("Оплата прошла успешно!"), "🍏", "\n\nНомер подарочной карты: ", Code(mes),"\nТип товара: Подарочная карта\nСпасибо за покупку в нашем магазине будем рады видеть вас снова!\nБудем ждать ваш отзыв здесь @AppleCardss_tp\n\n", title1, "\n1. Откройте App Store.\n2. В верхней части экрана нажмите кнопку входа или свое фото.\n3. Нажмите «Погасить подарочную карту или код».\n\n", title2, "\n1. Откройте App Store.\n2. Нажмите свое имя или кнопку входа на боковой панели.\n3. Нажмите «Погасить подарочную карту».")
+    await bot.send_message(message.chat.id, **content.as_kwargs())
+    await bot.send_message(703656168, f"Новая покупка в боте!{datetime.datetime.today()}\n\nПользователь {message.chat.id}\n\nДанные о заказе:\n{str(message.successful_payment)}")

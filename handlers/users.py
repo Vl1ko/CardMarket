@@ -53,7 +53,7 @@ async def history(callback: types.CallbackQuery):
     order = str(str(db.buy_history(user_id=callback.message.chat.id)).replace('[','').replace("'"," ").replace("(","").replace('"',"").replace("datetime",'').replace(",",'').replace('date','').replace(".",'').replace("|", "").replace(")","").replace("]",'').replace("'\'","").replace("\\","").lstrip()).split()
     
     lenght = len(order)
-    index = lenght//6
+    index = lenght//7
     nmes = " "
     for i in range(index):
         mes = f"🍏 {order[(7*i)+4]} {order[(7*i)+5]} на {order[(7*i)+3]}₽ | {order[(7*i)]}.{order[(7*i)+1]}.{order[(7*i)+2]}\nКод активации: {order[(7*i)+6]}\n\n"

@@ -51,6 +51,11 @@ class Database:
         with self.connection:
             answer = str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchall()).split()
             return answer
+        
+    def check(self, amount):
+        with self.connection:
+            result = self.cursor.execute("SELECT amount FROM cards WHERE amount = ?", (amount,)).fetchall()
+            return (bool(len(result)))
     
     def new_buy(self, amount, user_id, product):
         with self.connection:
