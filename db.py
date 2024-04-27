@@ -60,6 +60,7 @@ class Database:
     def new_buy(self, amount, user_id, product):
         with self.connection:
             date = datetime.date.today()
+            print(str(self.cursor.execute("SELECT number FROM cards WHERE amount = ?", (amount,)).fetchone()).split("'"))
             number = str(self.cursor.execute("SELECT number FROM cards WHERE amount = ?", (amount,)).fetchone()).split("'")[1]
             self.cursor.execute("DELETE FROM cards WHERE number = ?", (number,))
             print(str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchone()))

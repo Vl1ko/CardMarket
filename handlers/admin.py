@@ -147,7 +147,7 @@ async def successful_payment(message: types.Message):
         print("{:<30}".format(f"{i}"))
     title1 = Bold("📱 Инструкция для iPhone, iPad или iPod touch:")
     title2 = Bold("💻 Инструкция для компьютера Mac:")
-    card_number = str(db.new_buy(amount=int(int(message.successful_payment.total_amount)/130), user_id=message.chat.id, product='Подарочная карта'))
+    card_number = str(db.new_buy(amount=int(int(message.successful_payment.total_amount)/119), user_id=message.chat.id, product='Подарочная карта'))
     mes = Bold(str(card_number))
     content = Text(Bold("Оплата прошла успешно!"), "🍏", "\n\nНомер подарочной карты: ", Code(mes),"\nТип товара: Подарочная карта\nСпасибо за покупку в нашем магазине будем рады видеть вас снова!\nБудем ждать ваш отзыв здесь @AppleCardss_tp\n\n", title1, "\n1. Откройте App Store.\n2. В верхней части экрана нажмите кнопку входа или свое фото.\n3. Нажмите «Погасить подарочную карту или код».\n\n", title2, "\n1. Откройте App Store.\n2. Нажмите свое имя или кнопку входа на боковой панели.\n3. Нажмите «Погасить подарочную карту».")
     await bot.send_message(message.chat.id, **content.as_kwargs())
