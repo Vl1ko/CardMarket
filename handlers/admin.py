@@ -95,7 +95,7 @@ async def cmd_admin(message: types.Message, state: FSMContext):
 @dp.message(AdminAction.add_new_card)
 async def cmd_admin(message: types.Message, state: FSMContext):
     try:
-        if ((message.text.split()[0].isdigit()) and (message.text.split()[1].isdigit())) and message.text.split()[0] in card_summs and len(message.text.split()[1])==s:
+        if ((message.text.split()[0].isdigit()) and (message.text.split()[1].isdigit())) and message.text.split()[0] in card_summs and len(message.text.split()[1])==12:
             db.add_product(amount=(message.text.split())[0], number=(message.text.split())[1])
             await message.answer(text=f"Карта номиналом {(message.text.split())[0]} с номером {(message.text.split())[1]} добавлена успешно!")
             await state.clear()
