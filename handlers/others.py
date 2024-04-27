@@ -19,14 +19,13 @@ db_file = script_dir / 'database.db'
 db = Database(db_file=db_file)
 
 PRICE = {
-    '1': [types.LabeledPrice(label='Apple Gift Card 500 ₽', amount=500*1.3*100)],
-    '2': [types.LabeledPrice(label='Apple Gift Card 1500 ₽', amount=1500*1.3*100)],
-    '3': [types.LabeledPrice(label='Apple Gift Card 2000 ₽', amount=2000*1.3*100)],
-    '4': [types.LabeledPrice(label='Apple Gift Card 3000 ₽', amount=3000*1.3*100)],
-    '5': [types.LabeledPrice(label='Apple Gift Card 4000 ₽', amount=4000*1.3*100)],
-    '6': [types.LabeledPrice(label='Apple Gift Card 5000 ₽', amount=5000*1.3*100)],
-    '7': [types.LabeledPrice(label='Apple Gift Card 10000 ₽', amount=10000*1.3*100)],
-    '8': [types.LabeledPrice(label='Apple Gift Card 20000 ₽', amount=1000*1.3*100)],
+    '1': [types.LabeledPrice(label='Apple Gift Card 500 ₽', amount=590*100)],
+    '2': [types.LabeledPrice(label='Apple Gift Card 1500 ₽', amount=1900*100)],
+    '3': [types.LabeledPrice(label='Apple Gift Card 2000 ₽', amount=2400*100)],
+    '4': [types.LabeledPrice(label='Apple Gift Card 3000 ₽', amount=3500*100)],
+    '6': [types.LabeledPrice(label='Apple Gift Card 5000 ₽', amount=6000*100)],
+    '7': [types.LabeledPrice(label='Apple Gift Card 10000 ₽', amount=12000*100)],
+    '8': [types.LabeledPrice(label='Apple Gift Card 1000 ₽', amount=1200*100)],
 }
 
 
