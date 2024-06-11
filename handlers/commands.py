@@ -21,7 +21,6 @@ db = Database(db_file=db_file)
 
 @dp.message(Command('start'))
 async def start(message: types.Message):
-    print(message.from_user.id)
     if (db.user_exists(message.from_user.id)):
         if (int(db.admin_exists(message.from_user.id)) == 1):
             await bot.send_message(message.chat.id, "Вы вошли в роли администратора",

@@ -1,10 +1,21 @@
-from aiogram import Bot, Dispatcher
-from env.env import TOKEN
+from aiogram import Bot, Dispatcher    
+#from .env import TOKEN
+import os
+from dotenv import load_dotenv
 
 import asyncio
+import logging
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
+
+TOKEN = os.getenv('TOKEN')
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot=bot)
+
+logging.basicConfig(level=logging.DEBUG)
 
 async def main():
     from handlers.admin import dp

@@ -19,7 +19,6 @@ class Database:
         
     def reg_date(self, user_id):
         with self.connection:
-            print (str(self.cursor.execute("SELECT signup FROM users WHERE user_id = ?", (user_id,)).fetchone()).split("'"))
             return str(self.cursor.execute("SELECT signup FROM users WHERE user_id = ?", (user_id,)).fetchone()).split("'")[1]
     
     def bills(self, user_id):
@@ -60,20 +59,15 @@ class Database:
     def new_buy(self, amount, user_id, product):
         with self.connection:
             date = datetime.date.today()
-            print(str(self.cursor.execute("SELECT number FROM cards WHERE amount = ?", (amount,)).fetchone()).split("'"))
             number = str(self.cursor.execute("SELECT number FROM cards WHERE amount = ?", (amount,)).fetchone()).split("'")[1]
             self.cursor.execute("DELETE FROM cards WHERE number = ?", (number,))
-            print(str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchone()))
             if len(str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchone())) > 7:
                 old_description = str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchone())[2:][:-3]
                 description = f"{old_description}{date, amount, product, number}|"
                 self.cursor.execute("UPDATE users SET orders = ? WHERE user_id = ?", (description, user_id))
-                print('Старое описание', old_description)
-                print('Новое описание', description)            
             else:
                 description = f"{date, amount, product, number}|"
                 self.cursor.execute("UPDATE users SET orders = ? WHERE user_id = ?", (description, user_id))
-                print('Новое описание', description)
 
             buy_int = str(self.cursor.execute("SELECT bills FROM users WHERE user_id = ?", (user_id,)).fetchone()).split(",")[0][1:]
             new_int = int(buy_int)+1
