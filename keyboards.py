@@ -24,7 +24,8 @@ mnkeyboard = ReplyKeyboardBuilder().add(
     types.KeyboardButton(text='👤 Мой профиль'),
     types.KeyboardButton(text='👨‍💻 Тех. поддержка'),
     types.KeyboardButton(text="📝 Отзывы"),
-    types.KeyboardButton(text="📢 Перейти в канал")).adjust(2)
+    types.KeyboardButton(text="📢 Перейти в канал"),
+    types.KeyboardButton(text="🛍️ Как купить звезды?")).adjust(2)
 
 main_adm_keyboard = types.ReplyKeyboardMarkup(
     keyboard=[

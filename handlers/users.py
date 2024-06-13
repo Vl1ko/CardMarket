@@ -47,6 +47,11 @@ async def feedback(message: types.Message):
             await message.answer(**content.as_kwargs(),
                             reply_markup=mnkeyboard.as_markup(resize_keyboard=True))
 
+@dp.message(F.text == "🛍️ Как купить звезды?")
+async def feedback(message: types.Message):
+            content = Text("Чтобы пользователи могли оплачивать цифровые товары и услуги в экосистеме Telegram, были запущенны «Звёзды» Telegram. Звёзды можно приобрести через систему встроенных покупок в магазинах Apple и Google или с помощью бота ", TextLink("PremiumBot", url="https://t.me/premiumbot"),".")
+            await message.answer(**content.as_kwargs(),
+                            reply_markup=mnkeyboard.as_markup(resize_keyboard=True))
 
 @dp.callback_query(F.data == "orders")
 async def history(callback: types.CallbackQuery):

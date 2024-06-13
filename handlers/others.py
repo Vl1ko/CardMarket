@@ -28,13 +28,12 @@ PRICE = {
     '8': [types.LabeledPrice(label='Apple Gift Card 1000 ₽', amount=600)],
 }
 
-#prices=PRICE[f'{web_app_message.web_app_data.data}'],
 
 @dp.message(F.content_type == ContentType.WEB_APP_DATA)
 async def buy_process(web_app_message):
     content = "К сожалению, в данный момент выбранного товара нет в наличии"
     amount = (str(PRICE[f'{web_app_message.web_app_data.data}'][-1]).split("=")[-1])
-    if db.check(amount = int(amount)/100):
+    if db.check(amount = int(amount)):
         await bot.send_invoice(
                             chat_id=web_app_message.chat.id,
                             title='Apple Gift Card 🍏',
