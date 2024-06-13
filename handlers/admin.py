@@ -136,6 +136,10 @@ async def cmd_admin(message: types.Message, state: FSMContext):
             if (int(db.admin_exists(message.from_user.id)) == 1):
                 await bot.send_document(message.chat.id, FSInputFile('database.db'))
 
+@dp.message(F.text == "Тест")
+async def cmd_admin(message: types.Message, state: FSMContext):
+     await bot.send_message(message.chat.id, db.product_exists())
+
 
 @dp.message(F.content_type == ContentType.SUCCESSFUL_PAYMENT)
 async def successful_payment(message: types.Message):

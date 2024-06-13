@@ -46,6 +46,13 @@ class Database:
         with self.connection:
             self.cursor.execute("DELETE FROM cards WHERE number = ?", (number,))
 
+    """def product_exists(self):
+        with self.connection:
+            result500 = self.cursor.execute("SELECT * FROM cards WHERE amount = 500" ).fetchall()
+            result500 = self.cursor.execute("SELECT * FROM cards WHERE amount = 500" ).fetchall()
+            print(result)
+            return (str(result))"""
+
     def buy_history(self, user_id):
         with self.connection:
             answer = str(self.cursor.execute("SELECT orders FROM users WHERE user_id = ?", (user_id,)).fetchall()).split()
